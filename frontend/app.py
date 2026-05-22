@@ -42,7 +42,15 @@ with st.sidebar:
     )
 
     if uploaded_file:
-        st.success(f"{uploaded_file.name} uploaded successfully!")
+        with st.spinner("Indexing PDF..."):
+            response = requests.post(
+                "http://127.0.0.1:8000/upload",
+                 files={"file": (uploaded_file.name, uploaded_file.getvalue(),"application/pdf")}
+            )
+            if response.status_code == 200:
+                st.success(f"{uploaded_file.name} uploaded and indexed!")
+            else:
+                st.error("Upload failed!")
 
     st.markdown("---")
 
