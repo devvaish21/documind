@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from utils.vector_store import get_relevant_chunks, create_vector_store
+from utils.rag_chain import get_answer
 from utils.chunker import split_documents
 import pypdf
 import io
@@ -78,6 +78,5 @@ async def ask_question(payload: dict):
     question = payload.get("question", "")
     if not question.strip():
         raise HTTPException(status_code=400, detail="Question cannot be empty")
-    results = get_relevant_chunks(question, k=5)
-    answer = "\n\n".join([doc.page_content for doc in results])
+    answer = get_answer(question)
     return {"answer": answer}
