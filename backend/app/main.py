@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from utils.rag_chain import get_answer
+from utils.vector_store import create_vector_store
 from utils.chunker import split_documents
 import pypdf
 import io
