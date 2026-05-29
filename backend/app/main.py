@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from utils.vector_store import get_relevant_chunks, create_vector_store
+from utils.rag_chain import get_answer
+from utils.vector_store import create_vector_store
 from utils.chunker import split_documents
 from langchain_community.document_loaders import PyPDFLoader
 import aiofiles
