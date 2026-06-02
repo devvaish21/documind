@@ -45,5 +45,5 @@ Answer:""")
     return chain.invoke(query)
 
 if __name__ == "__main__":
-    response = get_answer("What is project one?")
+    response = get_answer("")
     print(response)
