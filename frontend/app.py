@@ -1,195 +1,211 @@
 import streamlit as st
-import requests
+import time
+from pypdf import PdfReader
 
-# ---------------------------------------------------
+from utils.load_css import load_css
+
+from components.sidebar import render_sidebar
+from components.header import render_header
+from components.metrics import render_metrics
+from components.upload_box import render_upload_box
+from components.chat_message import user_message
+from components.citation_card import render_citation
+
+# --------------------------------------------------
 # PAGE CONFIG
-# ---------------------------------------------------
+# --------------------------------------------------
 
 st.set_page_config(
     page_title="DocuMind Enterprise",
     page_icon="🧠",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="wide"
 )
 
-# ---------------------------------------------------
+# --------------------------------------------------
 # LOAD CSS
-# ---------------------------------------------------
+# --------------------------------------------------
 
-with open("frontend/style.css") as f:
-    st.markdown(
-        f"<style>{f.read()}</style>",
-        unsafe_allow_html=True
-    )
+load_css("styles/main.css")
 
-# ---------------------------------------------------
+# --------------------------------------------------
 # SIDEBAR
-# ---------------------------------------------------
+# --------------------------------------------------
 
-with st.sidebar:
+render_sidebar()
 
+# --------------------------------------------------
+# HEADER
+# --------------------------------------------------
+
+render_header()
+
+st.write("")
+
+# --------------------------------------------------
+# METRICS
+# --------------------------------------------------
+
+render_metrics()
+
+st.write("")
+
+# --------------------------------------------------
+# FEATURES
+# --------------------------------------------------
+
+st.markdown("## ✨ Features")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
     st.markdown("""
-    <div class="sidebar-logo">
-        🧠 <span>DocuMind</span>
+    <div class='feature-card'>
+        <h3>📄 Smart PDF Analysis</h3>
+        <p>Upload and analyze enterprise PDFs instantly.</p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("### Upload Documents")
-
-    uploaded_file = st.file_uploader(
-        "Upload your PDF",
-        type=["pdf"]
-    )
-
-    if uploaded_file:
-        st.success(f"{uploaded_file.name} uploaded successfully!")
-
-    st.markdown("---")
-
-    st.markdown("### Features")
-
+with col2:
     st.markdown("""
-    ✅ Semantic Search  
-    ✅ Multi PDF Support  
-    ✅ AI-Powered Answers  
-    ✅ Context Aware RAG  
-    """)
-
-    st.markdown("---")
-
-    st.markdown("### Recent Chats")
-
-    st.markdown("""
-    - Refund Policy  
-    - Employee Leave SOP  
-    - HR Guidelines  
-    """)
-
-# ---------------------------------------------------
-# HERO SECTION
-# ---------------------------------------------------
-
-st.markdown("""
-<div class="hero-container">
-
-<h1 class="main-title">
-🧠 DocuMind Enterprise
-</h1>
-
-<p class="subtitle">
-AI-Powered Enterprise Knowledge Assistant
-</p>
-
-<div class="feature-badges">
-    <span>⚡ Fast Retrieval</span>
-    <span>📄 Multi PDF</span>
-    <span>🧠 Context Aware</span>
-    <span>🔒 Secure AI</span>
-</div>
-
-</div>
-""", unsafe_allow_html=True)
-
-# ---------------------------------------------------
-# SESSION STATE
-# ---------------------------------------------------
-
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-# ---------------------------------------------------
-# WELCOME SCREEN
-# ---------------------------------------------------
-
-if len(st.session_state.messages) == 0:
-
-    st.markdown("""
-    <div class="welcome-card">
-
-    <h3>Welcome to DocuMind Enterprise</h3>
-
-    <p>
-    Upload company documents and ask questions instantly using AI-powered semantic search.
-    </p>
-
-    <div class="example-section">
-        <p>Example Questions:</p>
-
-        <ul>
-            <li>What is the refund policy?</li>
-            <li>Summarize onboarding process</li>
-            <li>Explain leave policy</li>
-            <li>What are employee benefits?</li>
-        </ul>
-    </div>
-
+    <div class='feature-card'>
+        <h3>🧠 AI Assistant</h3>
+        <p>Ask natural language questions about documents.</p>
     </div>
     """, unsafe_allow_html=True)
 
-# ---------------------------------------------------
-# DISPLAY CHAT
-# ---------------------------------------------------
+with col3:
+    st.markdown("""
+    <div class='feature-card'>
+        <h3>⚡ Fast Search</h3>
+        <p>Retrieve relevant information quickly.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-for message in st.session_state.messages:
+st.write("")
 
-    if message["role"] == "user":
+# --------------------------------------------------
+# UPLOAD SECTION
+# --------------------------------------------------
 
-        st.markdown(f"""
-        <div class="user-message">
-            👤 {message["content"]}
-        </div>
-        """, unsafe_allow_html=True)
+uploaded_file = render_upload_box()
 
-    else:
+pdf_text = ""
 
-        st.markdown(f"""
-        <div class="bot-message">
-            🤖 {message["content"]}
-        </div>
-        """, unsafe_allow_html=True)
-
-# ---------------------------------------------------
-# CHAT INPUT
-# ---------------------------------------------------
-
-prompt = st.chat_input("Ask anything about your documents...")
-
-if prompt:
-
-    st.session_state.messages.append({
-        "role": "user",
-        "content": prompt
-    })
+if uploaded_file is not None:
 
     try:
 
-        with st.spinner("DocuMind is thinking..."):
+        reader = PdfReader(uploaded_file)
 
-            response = requests.post(
-                "http://127.0.0.1:8000/ask",
-                json={
-                    "question": prompt
-                }
+        for page in reader.pages:
+
+            text = page.extract_text()
+
+            if text:
+                pdf_text += text + "\n"
+
+        st.success(
+            f"✅ {uploaded_file.name} uploaded successfully"
+        )
+
+    except Exception as e:
+
+        st.error(f"Error reading PDF: {e}")
+
+st.write("")
+
+# --------------------------------------------------
+# CHAT SECTION
+# --------------------------------------------------
+
+st.markdown("## 💬 Enterprise AI Assistant")
+
+prompt = st.chat_input(
+    "Ask your enterprise documents..."
+)
+
+if prompt:
+
+    user_message(prompt)
+
+    query = prompt.lower()
+
+    if not pdf_text:
+
+        response = "⚠ Please upload a PDF first."
+
+    elif "summary" in query or "summarize" in query:
+
+        response = (
+            "📄 PDF Summary\n\n"
+            + pdf_text[:2500]
+        )
+
+    else:
+
+        lines = pdf_text.split("\n")
+
+        matches = []
+
+        query_words = query.split()
+
+        for line in lines:
+
+            line_lower = line.lower()
+
+            if any(word in line_lower for word in query_words):
+
+                matches.append(line.strip())
+
+        if matches:
+
+            response = "\n\n".join(matches[:10])
+
+        else:
+
+            response = (
+                "No relevant information found in the uploaded PDF."
             )
 
-            answer = response.json()["answer"]
+    placeholder = st.empty()
 
-    except:
-        answer = "Backend server is not running."
+    full_response = ""
 
-    st.session_state.messages.append({
-        "role": "assistant",
-        "content": answer
-    })
+    for word in response.split():
 
-    st.rerun()
+        full_response += word + " "
 
-# ---------------------------------------------------
-# FOOTER
-# ---------------------------------------------------
+        placeholder.markdown(
+            f"""
+            <div class='chat-bot'>
+                {full_response}▌
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
-st.markdown("""
-<div class="footer">
-Built with FastAPI • LangChain • Streamlit • ChromaDB
-</div>
-""", unsafe_allow_html=True)
+        time.sleep(0.01)
+
+    render_citation()
+
+# --------------------------------------------------
+# STATUS CARD
+# --------------------------------------------------
+
+st.write("")
+
+st.markdown(
+    """
+    <div class='status-card'>
+        <strong>🛡 Grounded Response Protection Active</strong><br>
+        Responses are generated only from uploaded documents.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.write("")
+
+st.caption(
+    "DocuMind Enterprise • AI Document Assistant"
+)
