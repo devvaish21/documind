@@ -1,36 +1,44 @@
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 
 PERSIST_DIR = "./vectorstore"
 
+# ✅ Load embedding model ONCE — cached here
+print("Initializing HuggingFace embedding model...")
+_embed_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+print("Embedding model loaded! ⚡")
+
 def get_embedding_model():
-    return HuggingFaceEmbeddings(
-        model_name="all-MiniLM-L6-v2"
-    )
+    """Returns the already-loaded embedding model — no reloading!"""
+    return _embed_model
 
 def create_vector_store(chunks):
-    print("Creating ChromaDB vector store with HuggingFace embeddings...")
-    embed_model = get_embedding_model()
+    """
+    Called ONLY when a new PDF is uploaded.
+    Creates and saves ChromaDB from document chunks.
+    """
+    print("Creating ChromaDB vector store...")
     vectorstore = Chroma.from_documents(
         documents=chunks,
-        embedding=embed_model,
+        embedding=_embed_model,
         persist_directory=PERSIST_DIR
     )
-    print(f"Stored {vectorstore._collection.count()} chunks in ChromaDB")
+    print(f"Stored {vectorstore._collection.count()} chunks in ChromaDB ✅")
     return vectorstore
 
 def load_vector_store():
-    embed_model = get_embedding_model()
+    """
+    Called at server startup and after new PDF upload.
+    Loads existing ChromaDB from disk — fast since model is cached.
+    """
     return Chroma(
         persist_directory=PERSIST_DIR,
-        embedding_function=embed_model
+        embedding_function=_embed_model
     )
 
 def get_relevant_chunks(query: str, k: int = 5):
     """
-    Main function Person 1 (FastAPI) will call.
-    Input:  query string, k = number of results to return
-    Output: list of Document objects with .page_content and .metadata
+    Returns list of Document objects with .page_content and .metadata
     """
     vs = load_vector_store()
     results = vs.similarity_search(query, k=k)
