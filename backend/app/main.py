@@ -1,6 +1,8 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from utils.vector_store import get_relevant_chunks, create_vector_store
+from utils.rag_chain import get_answer, reload_vector_store
+from utils.vector_store import create_vector_store
 from utils.chunker import split_documents
 from langchain_community.document_loaders import PyPDFLoader
 import aiofiles
@@ -55,7 +57,7 @@ async def index_pdf_background(tmp_path: str, filename: str, expected_pages: int
 
         chunks = split_documents(docs)
         create_vector_store(chunks)
-
+        reload_vector_store()
         indexing_status[filename] = "ready"
 
     except Exception as e:
