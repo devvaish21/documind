@@ -1,7 +1,0 @@
-.env
-venv/
-vectorstore/
-__pycache__/
-*.pyc
-*.pyo
-*.pdf
