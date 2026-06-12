@@ -1,28 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
 html,
 body,
 [class*="css"] {
-    font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 /* =========================
-   APP BACKGROUND
+APP BACKGROUND
 ========================= */
 
 .stApp {
-    background:
-        radial-gradient(circle at top right,
-            rgba(124,58,237,0.12),
-            transparent 35%),
-        linear-gradient(
-            135deg,
-            #050816,
-            #070b1f,
-            #050816
-        );
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(124, 58, 237, 0.12),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #050816, #070b1f, #050816);
 
-    color: #FFFFFF;
+  color: #ffffff;
 }
 
 /* =========================
@@ -30,9 +27,9 @@ body,
 ========================= */
 
 section[data-testid="stSidebar"] {
-    background: #0f172a;
-    border-right: 1px solid rgba(255,255,255,0.08);
-    width: 260px !important;
+  background: #0f172a;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  width: 260px !important;
 }
 
 /* =========================
@@ -40,51 +37,43 @@ section[data-testid="stSidebar"] {
 ========================= */
 
 .hero-card {
+  background: linear-gradient(135deg, #111827, #1e1b4b);
 
-    background: linear-gradient(
-        135deg,
-        #111827,
-        #1e1b4b
-    );
+  border-radius: 32px;
 
-    border-radius: 32px;
+  padding: 70px;
 
-    padding: 70px;
+  margin-bottom: 40px;
 
-    margin-bottom: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
-    border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 20px 50px rgba(124, 58, 237, 0.2);
 
-    box-shadow:
-        0 20px 50px rgba(124,58,237,0.20);
-
-    text-align: center;
+  text-align: center;
 }
 
 .main-title {
+  font-size: 72px;
 
-    font-size: 72px;
+  font-weight: 900;
 
-    font-weight: 900;
+  color: white;
 
-    color: white;
+  letter-spacing: -2px;
 
-    letter-spacing: -2px;
-
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .subtitle {
+  font-size: 22px;
 
-    font-size: 22px;
+  line-height: 1.7;
 
-    line-height: 1.7;
+  color: #9ca3af;
 
-    color: #9CA3AF;
+  max-width: 900px;
 
-    max-width: 900px;
-
-    margin: auto;
+  margin: auto;
 }
 
 /* =========================
@@ -92,44 +81,39 @@ section[data-testid="stSidebar"] {
 ========================= */
 
 .metric-card {
+  background: #111827;
 
-    background: #111827;
+  border-radius: 24px;
 
-    border-radius: 24px;
+  padding: 35px;
 
-    padding: 35px;
+  min-height: 180px;
 
-    min-height: 180px;
+  text-align: center;
 
-    text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
-    border: 1px solid rgba(255,255,255,0.08);
-
-    transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 .metric-card:hover {
+  transform: translateY(-6px);
 
-    transform: translateY(-6px);
-
-    box-shadow:
-        0 15px 35px rgba(124,58,237,.35);
+  box-shadow: 0 15px 35px rgba(124, 58, 237, 0.35);
 }
 
 .metric-card h1 {
-    font-size: 40px;
+  font-size: 40px;
 }
 
 .metric-card h2 {
+  font-size: 42px;
 
-    font-size: 42px;
-
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .metric-card p {
-
-    color: #9CA3AF;
+  color: #9ca3af;
 }
 
 /* =========================
@@ -137,42 +121,37 @@ section[data-testid="stSidebar"] {
 ========================= */
 
 .upload-card {
+  border: 2px dashed #7c3aed;
 
-    border: 2px dashed #7C3AED;
+  border-radius: 24px;
 
-    border-radius: 24px;
+  padding: 40px;
 
-    padding: 40px;
+  text-align: center;
 
-    text-align: center;
+  background: #111827;
 
-    background: #111827;
+  margin-top: 15px;
 
-    margin-top: 15px;
-
-    transition: .3s;
+  transition: 0.3s;
 }
 
 .upload-card:hover {
+  border-color: #a855f7;
 
-    border-color: #A855F7;
-
-    box-shadow:
-        0 0 35px rgba(124,58,237,.25);
+  box-shadow: 0 0 35px rgba(124, 58, 237, 0.25);
 }
 
 .upload-card h2 {
+  margin-bottom: 15px;
 
-    margin-bottom: 15px;
-
-    font-size: 30px;
+  font-size: 30px;
 }
 
 .small-text {
+  color: #9ca3af;
 
-    color: #9CA3AF;
-
-    font-size: 16px;
+  font-size: 16px;
 }
 
 /* =========================
@@ -180,33 +159,29 @@ section[data-testid="stSidebar"] {
 ========================= */
 
 .citation-card {
+  background: #111827;
 
-    background: #111827;
+  border-radius: 20px;
 
-    border-radius: 20px;
+  padding: 22px;
 
-    padding: 22px;
+  min-height: 170px;
 
-    min-height: 170px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
-    border: 1px solid rgba(255,255,255,.08);
-
-    transition: .3s;
+  transition: 0.3s;
 }
 
 .citation-card:hover {
+  transform: translateY(-5px);
 
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 12px 25px rgba(124,58,237,.25);
+  box-shadow: 0 12px 25px rgba(124, 58, 237, 0.25);
 }
 
 .citation-card h3 {
+  margin-bottom: 12px;
 
-    margin-bottom: 12px;
-
-    font-size: 24px;
+  font-size: 24px;
 }
 
 /* =========================
@@ -214,28 +189,23 @@ section[data-testid="stSidebar"] {
 ========================= */
 
 .chat-user {
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
 
-    background: linear-gradient(
-        135deg,
-        #7C3AED,
-        #9333EA
-    );
+  color: white;
 
-    color: white;
+  padding: 18px;
 
-    padding: 18px;
+  border-radius: 20px;
 
-    border-radius: 20px;
+  max-width: 75%;
 
-    max-width: 75%;
+  margin-left: auto;
 
-    margin-left: auto;
+  margin-bottom: 15px;
 
-    margin-bottom: 15px;
+  font-size: 16px;
 
-    font-size: 16px;
-
-    font-weight: 500;
+  font-weight: 500;
 }
 
 /* =========================
@@ -243,24 +213,23 @@ section[data-testid="stSidebar"] {
 ========================= */
 
 .chat-bot {
+  background: #111827;
 
-    background: #111827;
+  color: white;
 
-    color: white;
+  padding: 18px;
 
-    padding: 18px;
+  border-radius: 20px;
 
-    border-radius: 20px;
+  max-width: 75%;
 
-    max-width: 75%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
-    border: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 15px;
 
-    margin-bottom: 15px;
+  font-size: 16px;
 
-    font-size: 16px;
-
-    line-height: 1.8;
+  line-height: 1.8;
 }
 
 /* =========================
@@ -268,18 +237,17 @@ section[data-testid="stSidebar"] {
 ========================= */
 
 .status-card {
+  background: rgba(16, 185, 129, 0.08);
 
-    background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16, 185, 129, 0.3);
 
-    border: 1px solid rgba(16,185,129,0.30);
+  border-radius: 20px;
 
-    border-radius: 20px;
+  padding: 20px;
 
-    padding: 20px;
+  color: #a7f3d0;
 
-    color: #A7F3D0;
-
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 /* =========================
@@ -287,8 +255,7 @@ section[data-testid="stSidebar"] {
 ========================= */
 
 .stChatInputContainer {
-
-    border-radius: 20px !important;
+  border-radius: 20px !important;
 }
 
 /* =========================
@@ -296,14 +263,70 @@ section[data-testid="stSidebar"] {
 ========================= */
 
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #0B0F19;
+  background: #0b0f19;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #7C3AED;
-    border-radius: 10px;
+  background: #7c3aed;
+  border-radius: 10px;
+}
+/* HERO BADGES */
+
+.feature-badges {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.feature-badges span {
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  padding: 10px 18px;
+  border-radius: 999px;
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* SIDEBAR LOGO */
+
+.sidebar-logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 20px;
+}
+/* FOOTER */
+
+.footer {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 15px;
+  padding: 30px 0;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer a {
+  color: #7c3aed;
+  text-decoration: none;
+}
+.example-question {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.example-question:hover {
+  border-color: #7c3aed;
+  transform: translateX(5px);
 }
