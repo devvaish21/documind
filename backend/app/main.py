@@ -1,3 +1,4 @@
+from functools import lru_cache
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from utils.vector_store import get_relevant_chunks, create_vector_store
