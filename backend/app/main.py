@@ -1,8 +1,8 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from functools import lru_cache
 from fastapi.middleware.cors import CORSMiddleware
 from utils.vector_store import get_relevant_chunks, create_vector_store
 from utils.rag_chain import get_answer, reload_vector_store
-from utils.vector_store import create_vector_store
 from utils.chunker import split_documents
 import pypdf
 import io
@@ -125,6 +125,9 @@ async def upload_pdf(file: UploadFile = File(...)):
 
         # Index into ChromaDB
         create_vector_store(chunks)
+        # Refresh in-memory retriever so /ask uses the new PDF
+        reload_vector_store()
+        cached_search.cache_clear()
 
     except HTTPException:
         raise
