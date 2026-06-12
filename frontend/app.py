@@ -132,7 +132,7 @@ Enterprise AI-Powered Knowledge Intelligence Platform
 <br>
 
 <h3 style="color:white;">
-Transform Company Documents Into Instant Answers
+Transform  Documents Into Instant Answers
 </h3>
 
 <p style="
@@ -221,17 +221,25 @@ if len(st.session_state.messages) == 0:
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("### Example Questions")
+st.markdown("""
+<div class="example-section">
 
-    st.markdown("""
-<div class="example-question">📄 What is the refund policy?</div>
-<div class="example-question">🚀 Summarize onboarding process</div>
-<div class="example-question">🏖️ Explain leave policy</div>
-<div class="example-question">💰 What are employee benefits?</div>
-<div class="example-question">📋 Summarize this PDF</div>
-<div class="example-question">🔍 Explain section 5 of the document</div>
+<h2>Example Questions</h2>
+
+<div class="question-item">📄 What is the refund policy?</div>
+
+<div class="question-item">🚀 Summarize onboarding process</div>
+
+<div class="question-item">📝 Explain leave policy</div>
+
+<div class="question-item">💰 What are employee benefits?</div>
+
+<div class="question-item">📑 Summarize this PDF</div>
+
+<div class="question-item">🔍 Explain section 5 of the document</div>
+
+</div>
 """, unsafe_allow_html=True)
-
 # ---------------------------------------------------
 # DISPLAY CHAT
 # ---------------------------------------------------
@@ -296,8 +304,14 @@ if prompt:
 
 st.markdown("""
 <div class="footer">
-    <h3>DocuMind Enterprise v1.0</h3>
-    <p>FastAPI • LangChain • ChromaDB • Streamlit</p>
-    <p>Developed by Tejas Pagar, Vaishnavi & Ishwarya</p>
+
+<h3>DocuMind Enterprise v1.0</h3>
+
+🚀 FastAPI • 🧠 LangChain • 📦 ChromaDB • 🎨 Streamlit
+
+<br><br>
+
+Developed by Tejas , Vaishnavi & Ishwarya
+
 </div>
 """, unsafe_allow_html=True)
