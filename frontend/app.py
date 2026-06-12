@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-
+import os
 # ---------------------------------------------------
 # PAGE CONFIG
 # ---------------------------------------------------
@@ -16,7 +16,7 @@ st.set_page_config(
 # LOAD CSS
 # ---------------------------------------------------
 
-with open("styles/main.css") as f:
+with open(os.path.join(os.path.dirname(__file__), "styles", "main.css")) as f:
     st.markdown(
         f"<style>{f.read()}</style>",
         unsafe_allow_html=True
